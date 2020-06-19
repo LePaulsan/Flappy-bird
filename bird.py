@@ -13,7 +13,7 @@ pg.init()
 window = pg.display.set_mode((WIDTH, HEIGHT))
 pg.display.set_caption("Flappy Bird")
 
-# birdImg = pg.image.load("bird.png")
+birdImg = pg.image.load("Bird 2.png")
 
 running = True
 gameSpeed = 1
@@ -26,7 +26,8 @@ class Bird:
         self.velocity = pg.math.Vector2(0, 0)
         self.acceleration = pg.math.Vector2(0, 0)
 
-        self.border = 50
+        self.width = 50
+        self.height = 35
 
         self.jumpForce = pg.math.Vector2(0, -7)
 
@@ -50,15 +51,15 @@ class Bird:
         self.velocity.y = 0
 
     def draw(self):
-        # window.blit(birdImg, (self.location.x - 12.5, self.location.y - 12.5))
-        pg.draw.rect(window, BLACK, (self.location.x, self.location.y, self.border, self.border))
+        window.blit(birdImg, (self.location.x, self.location.y))
+        # pg.draw.rect(window, BLACK, (self.location.x, self.location.y, self.border, self.border))
 
     def crash(self, tube):
-        if self.location.y <= tube.height or self.location.y + self.border >= tube.height + tube.gapHeight:
-            if tube.x - self.border <= self.location.x <= tube.x + tube.width:
+        if self.location.y <= tube.height or self.location.y + self.height >= tube.height + tube.gapHeight:
+            if tube.x - self.width <= self.location.x <= tube.x + tube.width:
                 return True
 
-        if self.location.y < 0 or self.location.y > HEIGHT - self.border:
+        if self.location.y < 0 or self.location.y > HEIGHT - self.height:
             return True
 
 class Tube:
